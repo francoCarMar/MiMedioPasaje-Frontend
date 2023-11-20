@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mi_medio_pasaje/components/navigator_drawer.dart';
+import 'package:mi_medio_pasaje/screens/data_complaint_page.dart';
 
-class NewComplaintVideoPage extends StatelessWidget {
-  final String Email;
+class NewComplaint extends StatelessWidget {
+  final String email;
 
-  const NewComplaintVideoPage({super.key, required this.Email});
+  const NewComplaint({super.key, required this.email});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,14 @@ class NewComplaintVideoPage extends StatelessWidget {
               child: const Text('Grabar'),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DataComplaint(email: email),
+                  ),
+                );
+              },
               child: const Text('Adjuntar data'),
             ),
           ],

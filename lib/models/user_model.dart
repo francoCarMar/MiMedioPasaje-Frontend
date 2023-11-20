@@ -6,7 +6,7 @@ class User {
   final String usrPas;
   final List<int> usrImgCar;
   final List<int> usrImgDNI;
-  final int usrCalCod;
+  final int usrValCod;
   final bool usrVal;
 
   User({
@@ -17,7 +17,7 @@ class User {
     required this.usrPas,
     required this.usrImgCar,
     required this.usrImgDNI,
-    required this.usrCalCod,
+    required this.usrValCod,
     required this.usrVal,
   });
 
@@ -29,7 +29,7 @@ class User {
         usrPas: json["usrPas"],
         usrImgCar: json["usrImgCar"],
         usrImgDNI: json["usrImgDNI"],
-        usrCalCod: json["usrCalCod"],
+        usrValCod: json["usrValCod"],
         usrVal: json["usrVal"],
       );
 
@@ -41,7 +41,7 @@ class User {
         "usrPas": usrPas,
         "usrImgCar": usrImgCar,
         "usrImgDNI": usrImgDNI,
-        "usrCalCod": usrCalCod,
+        "usrValCod": usrValCod,
         "usrVal": usrVal,
       };
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/navigator_drawer.dart';
-import 'package:mi_medio_pasaje/screens/new_complaint_video_page.dart';
+import 'package:mi_medio_pasaje/screens/new_complaint_page.dart';
 
 class HomePage extends StatelessWidget {
   final String email;
@@ -18,11 +18,11 @@ class HomePage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => NewComplaintVideoPage(Email: email),
+                builder: (context) => NewComplaint(email: email),
               ),
             );
           },
-          child: Text('Nueva Queja'),
+          child: const Text('Nueva Queja'),
         ),
       ),
       drawer: const NavigatorDrawer(),
