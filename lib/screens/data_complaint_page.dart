@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/custom_textfield.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
-import 'package:intl/intl.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
+import 'package:mi_medio_pasaje/utils/data_time_utils.dart';
 
 class DataComplaint extends StatefulWidget {
   final String email;
@@ -17,6 +15,9 @@ class DataComplaintState extends State<DataComplaint> {
   @override
   void initState() {
     super.initState();
+    initializeTimezone();
+    _denFec.text = getCurrentDate();
+    _denHor.text = getCurrentTime();
   }
 
   final _denRazSoc = TextEditingController();
@@ -62,13 +63,9 @@ class DataComplaintState extends State<DataComplaint> {
           await ApiService().postData('http://10.0.2.2:3000/getUser', data);
 
       if (response.statusCode == 200) {
+        print(widget.email);
         usrDNI = response.data['user']['usrDNI'];
-        tz.initializeTimeZones();
-        tz.setLocalLocation(tz.getLocation('America/Lima'));
-        DateTime now = tz.TZDateTime.now(tz.local);
-        _denFec.text = DateFormat('yyyy-MM-dd').format(now);
-        _denHor.text = DateFormat('kk:mm').format(now);
-        setState(() {});
+
         return true;
       } else {
         throw Exception('Error al enviar la denuncia');
