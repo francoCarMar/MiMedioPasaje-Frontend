@@ -4,6 +4,7 @@ import 'package:mi_medio_pasaje/components/custom_textfield.dart';
 import 'package:mi_medio_pasaje/components/password_textfield.dart';
 import 'package:mi_medio_pasaje/screens/home_page.dart';
 import 'package:mi_medio_pasaje/screens/register_page.dart';
+import 'package:mi_medio_pasaje/services/api_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,7 +15,7 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
   final Dio _dio = Dio();
-  String Email = '';
+  String email = '';
 
   final Map<String, dynamic> _controllers = {
     'Email': TextEditingController(),
@@ -64,7 +65,7 @@ class LoginPageState extends State<LoginPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HomePage(email: Email)));
+                              builder: (context) => HomePage(email: email)));
                     }
                   },
                 ),
@@ -78,18 +79,12 @@ class LoginPageState extends State<LoginPage> {
 
   Future<bool> _login() async {
     try {
-      final response = await _dio.post(
-        'http://10.0.2.2:3000/login',
-        data: {
-          'usrEma': _controllers['Email'].text,
-          'usrPas': _controllers['Password'].text,
-        },
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-        ),
-      );
+      Map<String, dynamic> data = {
+        'usrEma': _controllers['Email'].text,
+        'usrPas': _controllers['Password'].text,
+      };
+      final response =
+          await ApiService().postData('http://10.0.2.2:3000/login', data);
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = response.data;
@@ -103,7 +98,7 @@ class LoginPageState extends State<LoginPage> {
           _errors[error] = "Invalid $error";
           _controllers[error].text = '';
         }
-        Email = _controllers['Email'].text;
+        email = _controllers['Email'].text;
         setState(() {});
         return access;
       } else {

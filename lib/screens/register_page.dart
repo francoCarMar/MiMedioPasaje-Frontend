@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:mi_medio_pasaje/components/custom_textfield.dart';
 import 'package:mi_medio_pasaje/components/password_textfield.dart';
 import 'package:mi_medio_pasaje/screens/login_page.dart';
+import 'package:mi_medio_pasaje/services/api_service.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -74,23 +75,18 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future<bool> _register() async {
     try {
-      final response = await _dio.post(
-        'http://10.0.2.2:3000/register', // Reemplaza con la URL de tu API
-        data: {
-          'usrDNI': _dniController.text,
-          'usrNom': _nameController.text,
-          'usrApe': _lNameController.text,
-          'usrEma': _emailController.text,
-          'usrPas': _passController.text,
-          'usrImgCar': _imgCarnetController.text,
-          'usrImgDNI': _imgDNIController.text,
-        },
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-        ),
-      );
+      Map<String, dynamic> data = {
+        'usrDNI': _dniController.text,
+        'usrNom': _nameController.text,
+        'usrApe': _lNameController.text,
+        'usrEma': _emailController.text,
+        'usrPas': _passController.text,
+        'usrImgCar': _imgCarnetController.text,
+        'usrImgDNI': _imgDNIController.text,
+      };
+
+      final response =
+          await ApiService().postData('http://10.0.2.2:3000/register', data);
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = response.data;
