@@ -10,27 +10,21 @@ class DataComplaint extends StatefulWidget {
   const DataComplaint({super.key, required this.email});
 
   @override
-  _DataComplaintState createState() => _DataComplaintState();
+  DataComplaintState createState() => DataComplaintState();
 }
 
-class _DataComplaintState extends State<DataComplaint> {
+class DataComplaintState extends State<DataComplaint> {
   @override
   void initState() {
     super.initState();
   }
 
   final _denRazSoc = TextEditingController();
-  final _dniController = TextEditingController();
   final _denMovPla = TextEditingController();
   final _denFec = TextEditingController();
   final _denHor = TextEditingController();
   final _denEvi = TextEditingController();
   String usrDNI = '';
-
-  final Map<String, dynamic> _errors = {
-    'DNI': '',
-    'Email': '',
-  };
 
   @override
   Widget build(BuildContext context) {

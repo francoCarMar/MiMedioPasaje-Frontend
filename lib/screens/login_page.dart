@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:mi_medio_pasaje/components/custom_textfield.dart';
 import 'package:mi_medio_pasaje/components/password_textfield.dart';
 import 'package:mi_medio_pasaje/screens/home_page.dart';
@@ -14,7 +13,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
-  final Dio _dio = Dio();
   String email = '';
 
   final Map<String, dynamic> _controllers = {

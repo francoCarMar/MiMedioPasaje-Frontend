@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:mi_medio_pasaje/components/custom_textfield.dart';
 import 'package:mi_medio_pasaje/components/password_textfield.dart';
 import 'package:mi_medio_pasaje/screens/login_page.dart';
@@ -70,8 +69,6 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
-
-  final Dio _dio = Dio();
 
   Future<bool> _register() async {
     try {
