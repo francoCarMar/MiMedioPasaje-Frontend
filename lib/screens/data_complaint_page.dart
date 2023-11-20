@@ -37,9 +37,11 @@ class DataComplaintState extends State<DataComplaint> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
-            CustomTextField(controller: _denRazSoc, labelText: 'Apellidos'),
-            CustomTextField(controller: _denMovPla, labelText: 'Apellidos'),
-            CustomTextField(controller: _denEvi, labelText: 'Apellidos'),
+            CustomTextField(
+                controller: _denRazSoc, labelText: 'Nombre de la empresa'),
+            CustomTextField(
+                controller: _denMovPla, labelText: 'Número de placa'),
+            CustomTextField(controller: _denEvi, labelText: 'Evidencia'),
             ElevatedButton(
               onPressed: () async {
                 if (await _getUser() && await _complaint()) {
@@ -63,9 +65,7 @@ class DataComplaintState extends State<DataComplaint> {
           await ApiService().postData('http://10.0.2.2:3000/getUser', data);
 
       if (response.statusCode == 200) {
-        print(widget.email);
         usrDNI = response.data['user']['usrDNI'];
-
         return true;
       } else {
         throw Exception('Error al enviar la denuncia');
