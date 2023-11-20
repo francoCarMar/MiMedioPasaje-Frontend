@@ -13,9 +13,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
   final Dio _dio = Dio();
+
+  final Map<String, dynamic> _controllers = {
+    'Email': TextEditingController(),
+    'Password': TextEditingController(),
+  };
 
   final Map<String, dynamic> _errors = {
     'Email': '',
@@ -33,11 +36,11 @@ class LoginPageState extends State<LoginPage> {
         child: Column(
           children: <Widget>[
             CustomTextField(
-                controller: _emailController,
+                controller: _controllers['Email'],
                 labelText: 'Email',
                 errorText: _errors['Email']),
             PasswordTextField(
-                controller: _passwordController,
+                controller: _controllers['Password'],
                 errorText: _errors['Password']),
             ButtonBar(
               children: <Widget>[
@@ -75,8 +78,8 @@ class LoginPageState extends State<LoginPage> {
       final response = await _dio.post(
         'http://10.0.2.2:3000/login',
         data: {
-          'usrEma': _emailController.text,
-          'usrPas': _passwordController.text,
+          'usrEma': _controllers['Email'].text,
+          'usrPas': _controllers['Password'].text,
         },
         options: Options(
           headers: {
@@ -95,6 +98,7 @@ class LoginPageState extends State<LoginPage> {
           final String error = responseData['message'];
           print(error);
           _errors[error] = "Invalid $error";
+          _controllers[error].text = '';
         }
         setState(() {});
         return access;
