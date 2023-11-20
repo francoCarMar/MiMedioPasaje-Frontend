@@ -14,6 +14,7 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
   final Dio _dio = Dio();
+  String Email = '';
 
   final Map<String, dynamic> _controllers = {
     'Email': TextEditingController(),
@@ -60,8 +61,10 @@ class LoginPageState extends State<LoginPage> {
                   onPressed: () async {
                     if (await _login()) {
                       if (!context.mounted) return;
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomePage(email: Email)));
                     }
                   },
                 ),
@@ -100,6 +103,7 @@ class LoginPageState extends State<LoginPage> {
           _errors[error] = "Invalid $error";
           _controllers[error].text = '';
         }
+        Email = _controllers['Email'].text;
         setState(() {});
         return access;
       } else {
