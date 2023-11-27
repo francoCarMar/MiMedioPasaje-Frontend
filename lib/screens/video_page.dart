@@ -41,8 +41,12 @@ class _VideoPageState extends State<VideoPage> {
             onPressed: () async {
               print('ruta: ${widget.filePath}');
               String url = await uploadCloudinary(widget.filePath);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DataComplaint()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DataComplaint(
+                            pathEvi: widget.filePath,
+                          )));
               print('url: $url');
             },
           )

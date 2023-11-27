@@ -19,6 +19,7 @@ class DataComplaintState extends State<DataComplaint> {
     initializeTimezone();
     _denFec.text = getCurrentDate();
     _denHor.text = getCurrentTime();
+    _denEvi.text = widget.pathEvi;
   }
 
   final _denRazSoc = TextEditingController();
@@ -42,7 +43,11 @@ class DataComplaintState extends State<DataComplaint> {
                 controller: _denRazSoc, labelText: 'Nombre de la empresa'),
             CustomTextField(
                 controller: _denMovPla, labelText: 'Número de placa'),
-            CustomTextField(controller: _denEvi, labelText: 'Evidencia'),
+            CustomTextField(
+              controller: _denEvi,
+              labelText: 'Evidencia',
+              enabled: (widget.pathEvi == '') ? true : false,
+            ),
             ElevatedButton(
               onPressed: () async {
                 if (await _getUser() && await _complaint()) {
