@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mi_medio_pasaje/screens/camera_page.dart';
 import 'package:mi_medio_pasaje/screens/data_complaint_page.dart';
 
 class NewComplaint extends StatelessWidget {
@@ -15,7 +16,10 @@ class NewComplaint extends StatelessWidget {
         child: Column(
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CameraPage()));
+              },
               child: const Text('Grabar'),
             ),
             ElevatedButton(
