@@ -1,18 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:mi_medio_pasaje/services/cloudinary_service.dart';
 import 'package:video_player/video_player.dart';
-
-import 'package:cloudinary_public/cloudinary_public.dart';
-
-Future<String> subirACloudinary(String rutaArchivo) async {
-  final cloudinary = CloudinaryPublic('dtiztkeb5', 'k4yte9k9', cache: false);
-  CloudinaryResponse respuesta = await cloudinary.uploadFile(
-    CloudinaryFile.fromFile(rutaArchivo,
-        resourceType: CloudinaryResourceType.Video),
-  );
-  return respuesta.secureUrl;
-}
 
 class VideoPage extends StatefulWidget {
   final String filePath;
@@ -50,7 +39,7 @@ class _VideoPageState extends State<VideoPage> {
             icon: const Icon(Icons.check),
             onPressed: () async {
               print('ruta: ${widget.filePath}');
-              String url = await subirACloudinary(widget.filePath);
+              String url = await uploadCloudinary(widget.filePath);
               print('url: $url');
             },
           )
