@@ -3,9 +3,7 @@ import 'package:mi_medio_pasaje/screens/camera_page.dart';
 import 'package:mi_medio_pasaje/screens/data_complaint_page.dart';
 
 class NewComplaint extends StatelessWidget {
-  final String email;
-
-  const NewComplaint({super.key, required this.email});
+  const NewComplaint({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +25,7 @@ class NewComplaint extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DataComplaint(email: email),
+                    builder: (context) => DataComplaint(),
                   ),
                 );
               },

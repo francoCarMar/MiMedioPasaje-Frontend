@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/custom_textfield.dart';
+import 'package:mi_medio_pasaje/helpers/email_helper.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
 import 'package:mi_medio_pasaje/utils/data_time_utils.dart';
 
 class DataComplaint extends StatefulWidget {
-  final String email;
-  const DataComplaint({super.key, required this.email});
+  final String pathEvi;
+  const DataComplaint({super.key, this.pathEvi = ''});
 
   @override
   DataComplaintState createState() => DataComplaintState();
@@ -59,7 +60,7 @@ class DataComplaintState extends State<DataComplaint> {
   Future<bool> _getUser() async {
     try {
       Map<String, dynamic> data = {
-        'usrEma': widget.email,
+        'usrEma': EmailHelper.getEmail(context),
       };
       var response =
           await ApiService().postData('http://10.0.2.2:3000/getUser', data);

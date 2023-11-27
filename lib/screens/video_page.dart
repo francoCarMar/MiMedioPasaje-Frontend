@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:mi_medio_pasaje/screens/data_complaint_page.dart';
 import 'package:mi_medio_pasaje/services/cloudinary_service.dart';
 import 'package:video_player/video_player.dart';
 
@@ -40,6 +41,8 @@ class _VideoPageState extends State<VideoPage> {
             onPressed: () async {
               print('ruta: ${widget.filePath}');
               String url = await uploadCloudinary(widget.filePath);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DataComplaint()));
               print('url: $url');
             },
           )

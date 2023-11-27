@@ -4,8 +4,8 @@ class User {
   final String usrApe;
   final String usrEma;
   final String usrPas;
-  final List<int> usrImgCar;
-  final List<int> usrImgDNI;
+  final String usrImgCar;
+  final String usrImgDNI;
   final int usrValCod;
   final bool usrVal;
 

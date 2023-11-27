@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/custom_textfield.dart';
 import 'package:mi_medio_pasaje/components/password_textfield.dart';
+import 'package:mi_medio_pasaje/helpers/email_helper.dart';
+import 'package:mi_medio_pasaje/providers/email_notifier.dart';
 import 'package:mi_medio_pasaje/screens/home_page.dart';
 import 'package:mi_medio_pasaje/screens/register_page.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,8 +16,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
-  String email = '';
-
   final Map<String, dynamic> _controllers = {
     'Email': TextEditingController(),
     'Password': TextEditingController(),
@@ -60,10 +61,8 @@ class LoginPageState extends State<LoginPage> {
                   onPressed: () async {
                     if (await _login()) {
                       if (!context.mounted) return;
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomePage(email: email)));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     }
                   },
                 ),
@@ -87,6 +86,10 @@ class LoginPageState extends State<LoginPage> {
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = response.data;
         final bool access = responseData['access'];
+
+        EmailHelper.setEmail(context, _controllers['Email'].text);
+        print('Email: ${EmailHelper.getEmail(context)}');
+
         print(access);
         _errors['Email'] = '';
         _errors['Password'] = '';
@@ -96,7 +99,7 @@ class LoginPageState extends State<LoginPage> {
           _errors[error] = "Invalid $error";
           _controllers[error].text = '';
         }
-        email = _controllers['Email'].text;
+
         setState(() {});
         return access;
       } else {

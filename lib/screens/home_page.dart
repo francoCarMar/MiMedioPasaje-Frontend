@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/navigator_drawer.dart';
+import 'package:mi_medio_pasaje/helpers/email_helper.dart';
 import 'package:mi_medio_pasaje/screens/new_complaint_page.dart';
 
 class HomePage extends StatelessWidget {
-  final String email;
-
-  const HomePage({super.key, required this.email});
+  const HomePage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +17,7 @@ class HomePage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => NewComplaint(email: email),
+                builder: (context) => NewComplaint(),
               ),
             );
           },
