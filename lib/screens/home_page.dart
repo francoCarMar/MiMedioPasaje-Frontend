@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/navigator_drawer.dart';
-import 'package:mi_medio_pasaje/helpers/email_helper.dart';
 import 'package:mi_medio_pasaje/screens/new_complaint_page.dart';
 
 class HomePage extends StatelessWidget {
