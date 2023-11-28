@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/custom_textfield.dart';
 import 'package:mi_medio_pasaje/helpers/email_helper.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
+import 'package:mi_medio_pasaje/services/cloudinary_service.dart';
 import 'package:mi_medio_pasaje/utils/data_time_utils.dart';
 
 class DataComplaint extends StatefulWidget {
@@ -28,6 +29,8 @@ class DataComplaintState extends State<DataComplaint> {
   final _denHor = TextEditingController();
   final _denEvi = TextEditingController();
   String usrDNI = '';
+  String usrApe = '';
+  String usrNom = '';
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +75,8 @@ class DataComplaintState extends State<DataComplaint> {
 
       if (response.statusCode == 200) {
         usrDNI = response.data['user']['usrDNI'];
+        usrApe = response.data['user']['usrApe'];
+        usrNom = response.data['user']['usrNom'];
         return true;
       } else {
         throw Exception('Error al enviar la denuncia');
@@ -83,13 +88,16 @@ class DataComplaintState extends State<DataComplaint> {
 
   Future<bool> _complaint() async {
     try {
+      String url = await uploadCloudinary(_denEvi.text);
       Map<String, dynamic> data = {
         'usrDNI': usrDNI,
+        'usrNom': usrNom,
+        'usrApe': usrApe,
         'denRazSoc': _denRazSoc.text,
+        'denMovPla': _denMovPla.text,
         'denFec': _denFec.text,
         'denHor': _denHor.text,
-        'denMovPla': _denMovPla.text,
-        'denEvi': _denEvi.text,
+        'denEvi': url,
       };
 
       final response =

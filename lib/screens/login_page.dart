@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/custom_textfield.dart';
 import 'package:mi_medio_pasaje/components/password_textfield.dart';
 import 'package:mi_medio_pasaje/helpers/email_helper.dart';
-import 'package:mi_medio_pasaje/providers/email_notifier.dart';
 import 'package:mi_medio_pasaje/screens/home_page.dart';
 import 'package:mi_medio_pasaje/screens/register_page.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
-import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

@@ -15,8 +15,10 @@ class NewComplaint extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CameraPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CameraPage()));
               },
               child: const Text('Grabar'),
             ),
