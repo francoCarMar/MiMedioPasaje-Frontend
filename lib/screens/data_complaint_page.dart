@@ -71,7 +71,7 @@ class DataComplaintState extends State<DataComplaint> {
         'usrEma': EmailHelper.getEmail(context),
       };
       var response =
-          await ApiService().postData('http://10.0.2.2:3000/getUser', data);
+          await ApiService().postData('https://mimediopasaje-backend.onrender.com/getUser', data);
 
       if (response.statusCode == 200) {
         usrDNI = response.data['user']['usrDNI'];
@@ -101,7 +101,7 @@ class DataComplaintState extends State<DataComplaint> {
       };
 
       final response =
-          await ApiService().postData('http://10.0.2.2:3000/denunciar', data);
+          await ApiService().postData('https://mimediopasaje-backend.onrender.com/denunciar', data);
 
       if (response.statusCode == 200) {
         return true;
