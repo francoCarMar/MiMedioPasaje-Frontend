@@ -83,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
       };
 
       final response =
-          await ApiService().postData('http://10.0.2.2:3000/register', data);
+          await ApiService().postData('https://mimediopasaje-backend.onrender.com/register', data);
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = response.data;
