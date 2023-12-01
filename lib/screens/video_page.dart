@@ -15,6 +15,13 @@ class VideoPage extends StatefulWidget {
 class _VideoPageState extends State<VideoPage> {
   late VideoPlayerController _videoPlayerController;
 
+  @override
+  void initState() {
+    super.initState();
+    _initVideoPlayer();
+  }
+
+  @override
   void dispose() {
     _videoPlayerController.dispose();
     super.dispose();

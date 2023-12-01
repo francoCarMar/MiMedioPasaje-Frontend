@@ -9,10 +9,10 @@ class InicioPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mi Medio Pasaje'),
+        title: const Text('Mi Medio Pasaje'),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -24,42 +24,42 @@ class InicioPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               // Logo de la aplicación
-              FlutterLogo(
+              const FlutterLogo(
                 size: 100.0, // Ajusta el tamaño según tus necesidades
               ),
-              SizedBox(height: 20.0), // Espaciador
+              const SizedBox(height: 20.0), // Espaciador
 
               // Título y subtexto
-              Text(
+              const Text(
                 'Bienvenido a Mi Medio Pasaje',
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
-              Text(
+              const Text(
                 'Tu aplicación para gestionar tu medio de transporte.',
                 textAlign: TextAlign.center,
               ),
 
-              SizedBox(height: 30.0), // Espaciador
+              const SizedBox(height: 30.0), // Espaciador
 
               // Botones de navegación
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
                   );
                 },
-                child: Text('Iniciar Sesión'),
+                child: const Text('Iniciar Sesión'),
               ),
-              SizedBox(height: 10.0), // Espaciador
+              const SizedBox(height: 10.0), // Espaciador
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => RegisterPage()),
+                    MaterialPageRoute(builder: (context) => const RegisterPage()),
                   );
                 },
-                child: Text('Regístrate'),
+                child: const Text('Regístrate'),
               ),
             ],
           ),

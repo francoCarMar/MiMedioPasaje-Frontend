@@ -3,7 +3,10 @@ import 'package:mi_medio_pasaje/components/custom_textfield.dart';
 import 'package:mi_medio_pasaje/helpers/email_helper.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
 import 'package:mi_medio_pasaje/services/cloudinary_service.dart';
+import 'package:mi_medio_pasaje/services/file_picker_service.dart';
 import 'package:mi_medio_pasaje/utils/data_time_utils.dart';
+import 'package:mi_medio_pasaje/utils/dialog_utils.dart';
+
 
 class DataComplaint extends StatefulWidget {
   final String pathEvi;
@@ -43,13 +46,17 @@ class DataComplaintState extends State<DataComplaint> {
         child: Column(
           children: <Widget>[
             CustomTextField(
-                controller: _denRazSoc, labelText: 'Nombre de la empresa'),
+              controller: _denRazSoc,
+              labelText: 'Nombre de la empresa',
+            ),
             CustomTextField(
-                controller: _denMovPla, labelText: 'Número de placa'),
+              controller: _denMovPla,
+              labelText: 'Número de placa',
+            ),
             CustomTextField(
               controller: _denEvi,
               labelText: 'Evidencia',
-              enabled: (widget.pathEvi == '') ? true : false,
+              enabled: widget.pathEvi.isEmpty, // Habilita solo si es una ruta local
             ),
             ElevatedButton(
               onPressed: () async {
@@ -59,6 +66,25 @@ class DataComplaintState extends State<DataComplaint> {
               },
               child: const Text('Denunciar'),
             ),
+            if (widget.pathEvi.isNotEmpty)
+              ElevatedButton(
+                onPressed: () async {
+                  // Lógica para seleccionar y subir otro video
+                  DialogUtils.showLoadingDialog(context);
+                  final newVideoPath = await FilePickerService.pickVideo();
+                  Navigator.pop(context); // Cerrar el diálogo de carga
+
+                  if (newVideoPath != null) {
+                    setState(() {
+                      // Actualizar la ruta local de la evidencia con el nuevo video seleccionado
+                      _denEvi.text = newVideoPath;
+                    });
+                  } else {
+                    print('No se seleccionó ningún video');
+                  }
+                },
+                child: const Text('Seleccionar otra evidencia'),
+              ),
           ],
         ),
       ),
@@ -70,8 +96,8 @@ class DataComplaintState extends State<DataComplaint> {
       Map<String, dynamic> data = {
         'usrEma': EmailHelper.getEmail(context),
       };
-      var response =
-          await ApiService().postData('https://mimediopasaje-backend.onrender.com/getUser', data);
+      var response = await ApiService().postData(
+          'https://mimediopasaje-backend.onrender.com/getUser', data);
 
       if (response.statusCode == 200) {
         usrDNI = response.data['user']['usrDNI'];
@@ -88,7 +114,16 @@ class DataComplaintState extends State<DataComplaint> {
 
   Future<bool> _complaint() async {
     try {
-      String url = await uploadCloudinary(_denEvi.text);
+      String url;
+      if (_denEvi.text.startsWith('http')) {
+        // Si es una URL de Cloudinary, simplemente úsala
+        url = _denEvi.text;
+      } else {
+        DialogUtils.showLoadingDialog(context); // Mostrar diálogo de carga mientras se sube el video
+        url = await uploadCloudinary(_denEvi.text);
+        Navigator.pop(context); // Cerrar el diálogo de carga
+      }
+
       Map<String, dynamic> data = {
         'usrDNI': usrDNI,
         'usrNom': usrNom,
@@ -100,8 +135,8 @@ class DataComplaintState extends State<DataComplaint> {
         'denEvi': url,
       };
 
-      final response =
-          await ApiService().postData('https://mimediopasaje-backend.onrender.com/denunciar', data);
+      final response = await ApiService().postData(
+          'https://mimediopasaje-backend.onrender.com/denunciar', data);
 
       if (response.statusCode == 200) {
         return true;
