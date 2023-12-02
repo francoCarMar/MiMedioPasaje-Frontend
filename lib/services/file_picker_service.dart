@@ -1,17 +1,28 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class FilePickerService {
   static Future<String?> pickVideo() async {
     try {
-      final result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['mp4', 'mov', 'avi'], // Puedes ajustar las extensiones permitidas
-      );
+      PermissionStatus status = await Permission.storage.status;
 
-      if (result != null) {
-        final file = File(result.files.single.path!);
-        return file.path; // Devuelve la ruta local del video
+      if (!status.isGranted) {
+        status = await Permission.storage.request();
+      }
+
+      if (status.isGranted) {
+        final result = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['mp4', 'mov', 'avi'],
+        );
+
+        if (result != null) {
+          final file = File(result.files.single.path!);
+          return file.path;
+        }
+      } else {
+        print('Permiso de almacenamiento denegado');
       }
 
       return null;
@@ -21,4 +32,3 @@ class FilePickerService {
     }
   }
 }
-

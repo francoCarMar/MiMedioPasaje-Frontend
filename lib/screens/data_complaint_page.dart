@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/custom_textfield.dart';
+import 'package:mi_medio_pasaje/components/upload_media.dart';
 import 'package:mi_medio_pasaje/helpers/email_helper.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
 import 'package:mi_medio_pasaje/services/cloudinary_service.dart';
@@ -52,12 +53,11 @@ class DataComplaintState extends State<DataComplaint> {
               controller: _denMovPla,
               labelText: 'Número de placa',
             ),
-            CustomTextField(
-              controller: _denEvi,
-              labelText: 'Evidencia',
-              enabled:
-                  widget.pathEvi.isEmpty, // Habilita solo si es una ruta local
-            ),
+            UploadMediaPicker(
+                filePath: widget.pathEvi,
+                onFilePicked: (filePath) {
+                  print(filePath);
+                }),
             ElevatedButton(
               onPressed: () async {
                 if (await _getUser() && await _complaint()) {
@@ -66,25 +66,6 @@ class DataComplaintState extends State<DataComplaint> {
               },
               child: const Text('Denunciar'),
             ),
-            if (widget.pathEvi.isNotEmpty)
-              ElevatedButton(
-                onPressed: () async {
-                  // Lógica para seleccionar y subir otro video
-                  DialogUtils.showLoadingDialog(context);
-                  final newVideoPath = await FilePickerService.pickVideo();
-                  Navigator.pop(context); // Cerrar el diálogo de carga
-
-                  if (newVideoPath != null) {
-                    setState(() {
-                      // Actualizar la ruta local de la evidencia con el nuevo video seleccionado
-                      _denEvi.text = newVideoPath;
-                    });
-                  } else {
-                    print('No se seleccionó ningún video');
-                  }
-                },
-                child: const Text('Seleccionar otra evidencia'),
-              ),
           ],
         ),
       ),
