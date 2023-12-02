@@ -82,8 +82,8 @@ class _RegisterPageState extends State<RegisterPage> {
         'usrImgDNI': _imgDNIController.text,
       };
 
-      final response =
-          await ApiService().postData('https://mimediopasaje-backend.onrender.com/register', data);
+      final response = await ApiService().postData(
+          'https://mimediopasaje-backend.onrender.com/register', data);
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = response.data;

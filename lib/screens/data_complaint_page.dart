@@ -4,9 +4,8 @@ import 'package:mi_medio_pasaje/helpers/email_helper.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
 import 'package:mi_medio_pasaje/services/cloudinary_service.dart';
 import 'package:mi_medio_pasaje/services/file_picker_service.dart';
-import 'package:mi_medio_pasaje/utils/data_time_utils.dart';
-import 'package:mi_medio_pasaje/utils/dialog_utils.dart';
-
+import 'package:mi_medio_pasaje/helpers/data_time_helper.dart';
+import 'package:mi_medio_pasaje/helpers/dialog_helper.dart';
 
 class DataComplaint extends StatefulWidget {
   final String pathEvi;
@@ -56,7 +55,8 @@ class DataComplaintState extends State<DataComplaint> {
             CustomTextField(
               controller: _denEvi,
               labelText: 'Evidencia',
-              enabled: widget.pathEvi.isEmpty, // Habilita solo si es una ruta local
+              enabled:
+                  widget.pathEvi.isEmpty, // Habilita solo si es una ruta local
             ),
             ElevatedButton(
               onPressed: () async {
@@ -96,8 +96,8 @@ class DataComplaintState extends State<DataComplaint> {
       Map<String, dynamic> data = {
         'usrEma': EmailHelper.getEmail(context),
       };
-      var response = await ApiService().postData(
-          'https://mimediopasaje-backend.onrender.com/getUser', data);
+      var response = await ApiService()
+          .postData('https://mimediopasaje-backend.onrender.com/getUser', data);
 
       if (response.statusCode == 200) {
         usrDNI = response.data['user']['usrDNI'];
@@ -119,7 +119,8 @@ class DataComplaintState extends State<DataComplaint> {
         // Si es una URL de Cloudinary, simplemente úsala
         url = _denEvi.text;
       } else {
-        DialogUtils.showLoadingDialog(context); // Mostrar diálogo de carga mientras se sube el video
+        DialogUtils.showLoadingDialog(
+            context); // Mostrar diálogo de carga mientras se sube el video
         url = await uploadCloudinary(_denEvi.text);
         Navigator.pop(context); // Cerrar el diálogo de carga
       }
