@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mi_medio_pasaje/helpers/status_icon_helper.dart';
 import 'package:mi_medio_pasaje/helpers/user_helper.dart';
 import 'package:mi_medio_pasaje/models/denuncia_model.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
@@ -50,7 +51,7 @@ class ListComplaintState extends State<ListComplaint> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Denunciar'),
+        title: const Text('Mis Denuncias'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -61,6 +62,7 @@ class ListComplaintState extends State<ListComplaint> {
             return ListTile(
               title: Text(denuncia.denRazSoc),
               subtitle: Text(denuncia.denEst),
+              trailing: StatusIconHelper.getIconForStatus(denuncia.denEst),
             );
           },
         ),
