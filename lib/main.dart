@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mi_medio_pasaje/config/theme/app_theme.dart';
 import 'package:mi_medio_pasaje/providers/user_notifier.dart';
 import 'package:mi_medio_pasaje/screens/inicio_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -19,9 +20,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Mi Medio Pasaje',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: AppTheme().getTheme(),
         home: const InicioPage(),
       ),
     );

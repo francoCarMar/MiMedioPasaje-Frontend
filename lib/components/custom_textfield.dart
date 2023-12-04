@@ -14,11 +14,13 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textStyles = Theme.of(context).textTheme;
     return Column(
       children: [
         TextField(
           enabled: enabled,
           controller: controller,
+          style: textStyles.bodyMedium,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             labelText: labelText,

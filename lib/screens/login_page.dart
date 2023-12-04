@@ -29,9 +29,12 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final textStyles = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Iniciar sesión'),
+        title: Text('Iniciar sesión',
+            style: textStyles.titleLarge?.copyWith(color: Colors.white)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -63,7 +66,7 @@ class LoginPageState extends State<LoginPage> {
                   builder: (context, _, __) => ValueListenableBuilder(
                     valueListenable: _controllers['Password'],
                     builder: (context, _, __) => ElevatedButton(
-                      child: const Text('INGRESAR'),
+                      child: Text('INGRESAR'),
                       onPressed: (_controllers['Email'].text.isNotEmpty &&
                               _controllers['Password'].text.isNotEmpty)
                           ? () async {
