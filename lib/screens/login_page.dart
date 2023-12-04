@@ -41,6 +41,7 @@ class LoginPageState extends State<LoginPage> {
                 controller: _controllers['Email'],
                 labelText: 'Email',
                 errorText: _errors['Email']),
+            const SizedBox(height: 10),
             PasswordTextField(
                 controller: _controllers['Password'],
                 errorText: _errors['Password']),
@@ -57,15 +58,26 @@ class LoginPageState extends State<LoginPage> {
                     );
                   },
                 ),
-                ElevatedButton(
-                  child: const Text('INGRESAR'),
-                  onPressed: () async {
-                    if (await _login()) {
-                      if (!context.mounted) return;
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    }
-                  },
+                ValueListenableBuilder(
+                  valueListenable: _controllers['Email'],
+                  builder: (context, _, __) => ValueListenableBuilder(
+                    valueListenable: _controllers['Password'],
+                    builder: (context, _, __) => ElevatedButton(
+                      child: const Text('INGRESAR'),
+                      onPressed: (_controllers['Email'].text.isNotEmpty &&
+                              _controllers['Password'].text.isNotEmpty)
+                          ? () async {
+                              if (await _login()) {
+                                if (!context.mounted) return;
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => HomePage()));
+                              }
+                            }
+                          : null,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -91,22 +103,24 @@ class LoginPageState extends State<LoginPage> {
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = response.data;
         final bool access = responseData['access'];
-        final User user = User.fromJsonMap(responseData['user']);
-        _updateUser(user);
+
+        setState(() {
+          _isLoading = false;
+        });
 
         _errors['Email'] = '';
         _errors['Password'] = '';
         if (!access) {
           final String error = responseData['message'];
           print(error);
-          _errors[error] = "Invalid $error";
+          _errors[error] = "$error invalido";
           _controllers[error].text = '';
+          return false;
         }
 
-        setState(() {
-          _isLoading = false;
-        });
-        return access;
+        final User user = User.fromJsonMap(responseData['user']);
+        _updateUser(user);
+        return true;
       } else {
         throw Exception('Error al iniciar sesión');
       }
@@ -117,6 +131,10 @@ class LoginPageState extends State<LoginPage> {
   }
 
   void _updateUser(User user) {
-    UserHelper.setUser(context, user);
+    if (user != null) {
+      UserHelper.setUser(context, user);
+    } else {
+      print('El usuario es null');
+    }
   }
 }

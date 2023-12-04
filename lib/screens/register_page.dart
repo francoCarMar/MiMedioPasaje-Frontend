@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/custom_textfield.dart';
 import 'package:mi_medio_pasaje/components/password_textfield.dart';
+import 'package:mi_medio_pasaje/screens/loading_screen_page.dart';
 import 'package:mi_medio_pasaje/screens/login_page.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
 
@@ -19,6 +20,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final _passController = TextEditingController();
   final _imgCarnetController = TextEditingController();
   final _imgDNIController = TextEditingController();
+
+  bool _isLoading = false;
 
   final Map<String, dynamic> _errors = {
     'DNI': '',
@@ -64,6 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
               },
               child: const Text('Registrarse'),
             ),
+            if (_isLoading) const LoadingScreen(),
           ],
         ),
       ),
@@ -71,6 +75,9 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future<bool> _register() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       Map<String, dynamic> data = {
         'usrDNI': _dniController.text,
@@ -88,7 +95,9 @@ class _RegisterPageState extends State<RegisterPage> {
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = response.data;
         final bool registered = responseData['registered'];
-        print(registered);
+        setState(() {
+          _isLoading = false;
+        });
         _errors['DNI'] = '';
         _errors['Email'] = '';
         if (!registered) {
