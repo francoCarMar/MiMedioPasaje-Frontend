@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mi_medio_pasaje/screens/About_us_page.dart';
 import 'package:mi_medio_pasaje/screens/list_complaint_page.dart';
 import 'package:mi_medio_pasaje/screens/login_page.dart';
 import 'package:mi_medio_pasaje/screens/profile_page.dart';
@@ -42,7 +43,10 @@ class NavigatorDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Sobre nosotros'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AboutUsPage()));
+            },
           ),
           InkWell(
             child: const ListTile(
@@ -53,8 +57,6 @@ class NavigatorDrawer extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const LoginPage()));
             },
           ),
-
-          // Agregar más ListTile para más opciones
         ],
       ),
     );
