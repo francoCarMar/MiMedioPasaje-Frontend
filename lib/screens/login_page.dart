@@ -131,10 +131,6 @@ class LoginPageState extends State<LoginPage> {
   }
 
   void _updateUser(User user) {
-    if (user != null) {
-      UserHelper.setUser(context, user);
-    } else {
-      print('El usuario es null');
-    }
+    UserHelper.setUser(context, user);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mi_medio_pasaje/components/navigator_drawer.dart';
 
 class AboutUsPage extends StatelessWidget {
   @override
@@ -31,6 +32,7 @@ class AboutUsPage extends StatelessWidget {
           ],
         ),
       ),
+      drawer: const NavigatorDrawer(),
     );
   }
 }

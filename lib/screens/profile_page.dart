@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mi_medio_pasaje/components/navigator_drawer.dart';
 import 'package:mi_medio_pasaje/helpers/user_helper.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -21,6 +22,7 @@ class ProfilePage extends StatelessWidget {
           ],
         ),
       ),
+      drawer: const NavigatorDrawer(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mi_medio_pasaje/components/navigator_drawer.dart';
 import 'package:mi_medio_pasaje/helpers/status_icon_helper.dart';
 import 'package:mi_medio_pasaje/helpers/user_helper.dart';
 import 'package:mi_medio_pasaje/models/denuncia_model.dart';
@@ -13,8 +14,6 @@ class ListComplaint extends StatefulWidget {
 }
 
 class ListComplaintState extends State<ListComplaint> {
-  List<Denuncia> _denuncias = [];
-
   @override
   void initState() {
     super.initState();
@@ -33,7 +32,7 @@ class ListComplaintState extends State<ListComplaint> {
       if (response.statusCode == 200) {
         print(response.data['denuncias']);
         setState(() {
-          _denuncias = Denuncia.fromJsonList(
+          widget._denuncias = Denuncia.fromJsonList(
               List<Map<String, dynamic>>.from(response.data['denuncias']));
         });
       } else {
@@ -56,9 +55,9 @@ class ListComplaintState extends State<ListComplaint> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView.builder(
-          itemCount: _denuncias.length,
+          itemCount: widget._denuncias.length,
           itemBuilder: (context, index) {
-            final denuncia = _denuncias[index];
+            final denuncia = widget._denuncias[index];
             return ListTile(
               title: Text(denuncia.denRazSoc),
               subtitle: Text(denuncia.denEst),
@@ -67,6 +66,7 @@ class ListComplaintState extends State<ListComplaint> {
           },
         ),
       ),
+      drawer: const NavigatorDrawer(),
     );
   }
 }
