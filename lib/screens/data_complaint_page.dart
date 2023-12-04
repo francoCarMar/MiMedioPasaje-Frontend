@@ -52,6 +52,11 @@ class DataComplaintState extends State<DataComplaint> {
               controller: _denMovPla,
               labelText: 'Número de placa',
             ),
+            UploadFileComponent(
+                onFileSelected: (path) {
+                  print("Path: $path");
+                },
+                label: "Adjuntar evidencia"),
             ElevatedButton(
               onPressed: () async {
                 if (await _getUser() && await _complaint()) {
