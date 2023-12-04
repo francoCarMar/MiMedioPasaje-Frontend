@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mi_medio_pasaje/models/user_model.dart';
-import 'package:mi_medio_pasaje/providers/email_notifier.dart';
 import 'package:mi_medio_pasaje/providers/user_notifier.dart';
 import 'package:mi_medio_pasaje/screens/inicio_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

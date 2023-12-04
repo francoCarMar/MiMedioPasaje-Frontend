@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Denuncia {
   final String denCod;
   final String usrDNI;
@@ -5,8 +7,8 @@ class Denuncia {
   final String usrApe;
   final String denRazSoc;
   final String denMovPla;
-  final DateTime denFec;
-  final DateTime denHor;
+  final String denFec;
+  final String denHor;
   final String denEvi;
   final String denEst;
 
@@ -31,8 +33,8 @@ class Denuncia {
       usrApe: json['usrApe'],
       denRazSoc: json['denRazSoc'],
       denMovPla: json['denMovPla'],
-      denFec: DateTime.parse(json['denFec']),
-      denHor: DateTime.parse(json['denHor']),
+      denFec: json['denFec'],
+      denHor: json['denHor'],
       denEvi: json['denEvi'],
       denEst: json['denEst'],
     );
@@ -46,8 +48,8 @@ class Denuncia {
       'usrApe': usrApe,
       'denRazSoc': denRazSoc,
       'denMovPla': denMovPla,
-      'denFec': denFec.toIso8601String(),
-      'denHor': denHor.toIso8601String(),
+      'denFec': denFec,
+      'denHor': denHor,
       'denEvi': denEvi,
       'denEst': denEst,
     };
