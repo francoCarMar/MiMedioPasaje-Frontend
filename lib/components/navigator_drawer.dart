@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/screens/list_complaint_page.dart';
 import 'package:mi_medio_pasaje/screens/login_page.dart';
+import 'package:mi_medio_pasaje/screens/profile_page.dart';
 
 class NavigatorDrawer extends StatelessWidget {
   const NavigatorDrawer({super.key});
@@ -19,7 +20,14 @@ class NavigatorDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Perfil'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfilePage(),
+                ),
+              );
+            },
           ),
           ListTile(
             title: const Text('Mis Denuncias'),

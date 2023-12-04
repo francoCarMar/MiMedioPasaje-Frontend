@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/custom_textfield.dart';
 import 'package:mi_medio_pasaje/components/password_textfield.dart';
+import 'package:mi_medio_pasaje/components/upload_media.dart';
 import 'package:mi_medio_pasaje/screens/loading_screen_page.dart';
 import 'package:mi_medio_pasaje/screens/login_page.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
@@ -50,11 +51,20 @@ class _RegisterPageState extends State<RegisterPage> {
                 labelText: 'Número de DNI',
                 errorText: _errors['DNI']),
             PasswordTextField(controller: _passController),
-            CustomTextField(
-                controller: _imgDNIController, labelText: 'Imagen del DNI'),
-            CustomTextField(
-                controller: _imgCarnetController,
-                labelText: 'Imagen del Carnet Universitario'),
+            UploadFileComponent(
+              onFileSelected: (path) {
+                _imgDNIController.text = path;
+              },
+              label: "Adjuntar imagen del DNI",
+            ),
+            const SizedBox(height: 20),
+            UploadFileComponent(
+              onFileSelected: (path) {
+                _imgCarnetController.text = path;
+              },
+              label: "Adjuntar imagen del Carnet Universitario",
+            ),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
                 if (await _register()) {
