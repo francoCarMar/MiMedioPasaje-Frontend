@@ -21,7 +21,9 @@ class User {
     required this.usrVal,
   });
 
-  factory User.fromJsonMap(Map<String, dynamic> json) => User(
+  factory User.fromJsonMap(Map<String, dynamic> json) {
+    try {
+      return User(
         usrDNI: json["usrDNI"],
         usrNom: json["usrNom"],
         usrApe: json["usrApe"],
@@ -32,6 +34,11 @@ class User {
         usrValCod: json["usrValCod"],
         usrVal: json["usrVal"],
       );
+    } catch (e) {
+      print('Error al convertir el mapa a User: $e');
+      throw e;
+    }
+  }
 
   Map<String, dynamic> toJson() => {
         "usrDNI": usrDNI,

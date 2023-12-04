@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/custom_textfield.dart';
 import 'package:mi_medio_pasaje/components/password_textfield.dart';
-import 'package:mi_medio_pasaje/helpers/email_helper.dart';
+import 'package:mi_medio_pasaje/helpers/user_helper.dart';
+import 'package:mi_medio_pasaje/models/user_model.dart';
 import 'package:mi_medio_pasaje/screens/home_page.dart';
 import 'package:mi_medio_pasaje/screens/register_page.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
@@ -84,11 +85,9 @@ class LoginPageState extends State<LoginPage> {
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = response.data;
         final bool access = responseData['access'];
+        final User user = User.fromJsonMap(responseData['user']);
+        _updateUser(user);
 
-        EmailHelper.setEmail(context, _controllers['Email'].text);
-        print('Email: ${EmailHelper.getEmail(context)}');
-
-        print(access);
         _errors['Email'] = '';
         _errors['Password'] = '';
         if (!access) {
@@ -107,5 +106,9 @@ class LoginPageState extends State<LoginPage> {
       print('Ocurrió un error: $e');
       return false;
     }
+  }
+
+  void _updateUser(User user) {
+    UserHelper.setUser(context, user);
   }
 }
