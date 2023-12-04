@@ -4,7 +4,6 @@ import 'package:mi_medio_pasaje/components/upload_media.dart';
 import 'package:mi_medio_pasaje/helpers/email_helper.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
 import 'package:mi_medio_pasaje/services/cloudinary_service.dart';
-import 'package:mi_medio_pasaje/services/file_picker_service.dart';
 import 'package:mi_medio_pasaje/helpers/data_time_helper.dart';
 import 'package:mi_medio_pasaje/helpers/dialog_helper.dart';
 
@@ -53,11 +52,6 @@ class DataComplaintState extends State<DataComplaint> {
               controller: _denMovPla,
               labelText: 'Número de placa',
             ),
-            UploadMediaPicker(
-                filePath: widget.pathEvi,
-                onFilePicked: (filePath) {
-                  print(filePath);
-                }),
             ElevatedButton(
               onPressed: () async {
                 if (await _getUser() && await _complaint()) {
