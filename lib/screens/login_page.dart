@@ -43,67 +43,69 @@ class LoginPageState extends State<LoginPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            Image.asset(
-              'lib/assets/logo.png',
-              width: screenWidth * 0.9,
-              height: screenHeight * 0.3,
-            ),
-            const SizedBox(height: 20),
-            CustomTextField(
-                controller: _controllers['Email'],
-                labelText: 'Email',
-                errorText: _errors['Email']),
-            const SizedBox(height: 10),
-            PasswordTextField(
-                controller: _controllers['Password'],
-                errorText: _errors['Password']),
-            ButtonBar(
-              children: <Widget>[
-                TextButton(
-                  child: const Text('REGISTRARSE'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegisterPage(),
-                      ),
-                    );
-                  },
-                ),
-                ValueListenableBuilder(
-                  valueListenable: _controllers['Email'],
-                  builder: (context, _, __) => ValueListenableBuilder(
-                    valueListenable: _controllers['Password'],
-                    builder: (context, _, __) => ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: colorScheme.primary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Image.asset(
+                'lib/assets/logo.png',
+                width: screenWidth * 0.9,
+                height: screenHeight * 0.3,
+              ),
+              const SizedBox(height: 20),
+              CustomTextField(
+                  controller: _controllers['Email'],
+                  labelText: 'Email',
+                  errorText: _errors['Email']),
+              const SizedBox(height: 10),
+              PasswordTextField(
+                  controller: _controllers['Password'],
+                  errorText: _errors['Password']),
+              ButtonBar(
+                children: <Widget>[
+                  TextButton(
+                    child: const Text('REGISTRARSE'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegisterPage(),
                         ),
-                      ),
-                      onPressed: (_controllers['Email'].text.isNotEmpty &&
-                              _controllers['Password'].text.isNotEmpty)
-                          ? () async {
-                              if (await _login()) {
-                                if (!context.mounted) return;
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => HomePage()));
+                      );
+                    },
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: _controllers['Email'],
+                    builder: (context, _, __) => ValueListenableBuilder(
+                      valueListenable: _controllers['Password'],
+                      builder: (context, _, __) => ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: colorScheme.primary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                        ),
+                        onPressed: (_controllers['Email'].text.isNotEmpty &&
+                                _controllers['Password'].text.isNotEmpty)
+                            ? () async {
+                                if (await _login()) {
+                                  if (!context.mounted) return;
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HomePage()));
+                                }
                               }
-                            }
-                          : null,
-                      child: const Text('INGRESAR',
-                          style: TextStyle(color: Colors.white)),
+                            : null,
+                        child: const Text('INGRESAR',
+                            style: TextStyle(color: Colors.white)),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            if (_isLoading) const LoadingScreen(),
-          ],
+                ],
+              ),
+              if (_isLoading) const LoadingScreen(),
+            ],
+          ),
         ),
       ),
     );

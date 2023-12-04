@@ -10,14 +10,25 @@ class NavigatorDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
-            child: Text('Mi Medio Pasaje'),
-            decoration: BoxDecoration(
-              color: Colors.blue,
+          Container(
+            height: screenHeight * 0.4,
+            child: DrawerHeader(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'lib/assets/logo.png',
+                    height: screenHeight * 0.3,
+                    width: screenWidth * 0.6,
+                  ),
+                ],
+              ),
             ),
           ),
           ListTile(
