@@ -90,15 +90,9 @@ class DataComplaintState extends State<DataComplaint> {
   Future<bool> _complaint() async {
     try {
       String url;
-      if (_denEvi.text.startsWith('http')) {
-        // Si es una URL de Cloudinary, simplemente úsala
-        url = _denEvi.text;
-      } else {
-        DialogUtils.showLoadingDialog(
-            context); // Mostrar diálogo de carga mientras se sube el video
-        url = await uploadCloudinary(_denEvi.text);
-        Navigator.pop(context); // Cerrar el diálogo de carga
-      }
+      DialogUtils.showLoadingDialog(context);
+      url = await uploadCloudinary(_denEvi.text);
+      Navigator.pop(context);
 
       Map<String, dynamic> data = {
         'usrDNI': usrDNI,
