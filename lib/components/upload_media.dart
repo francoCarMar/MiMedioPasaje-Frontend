@@ -28,42 +28,21 @@ class _UploadFileComponentState extends State<UploadFileComponent> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              widget.label,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    return Column(
+      children: <Widget>[
+        TextField(
+          controller: TextEditingController()..text = _filePath,
+          readOnly: true,
+          decoration: InputDecoration(
+            labelText: widget.label,
+            border: OutlineInputBorder(),
+            suffixIcon: IconButton(
+              icon: Icon(Icons.upload_file),
+              onPressed: _pickFile,
             ),
           ),
-          const SizedBox(height: 10),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    _filePath,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.file_upload),
-                  onPressed: _pickFile,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

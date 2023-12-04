@@ -1,11 +1,8 @@
 import 'package:image_picker/image_picker.dart';
 
-import 'camera_gallery_service.dart';
-
 class CameraGalleryService {
   final ImagePicker _picker = ImagePicker();
 
-  @override
   Future<String?> selectPhoto() async {
     final XFile? photo = await _picker.pickImage(
       source: ImageSource.gallery,
@@ -19,7 +16,6 @@ class CameraGalleryService {
     return photo.path;
   }
 
-  @override
   Future<String?> takePhoto() async {
     final XFile? photo = await _picker.pickImage(
         source: ImageSource.camera,

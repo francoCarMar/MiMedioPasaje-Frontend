@@ -20,6 +20,7 @@ class CustomTextField extends StatelessWidget {
           enabled: enabled,
           controller: controller,
           decoration: InputDecoration(
+            border: OutlineInputBorder(),
             labelText: labelText,
           ),
         ),
