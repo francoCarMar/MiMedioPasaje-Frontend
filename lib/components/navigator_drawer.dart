@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/screens/about_us_page.dart';
+import 'package:mi_medio_pasaje/screens/home_page.dart';
 import 'package:mi_medio_pasaje/screens/list_complaint_page.dart';
 import 'package:mi_medio_pasaje/screens/login_page.dart';
 import 'package:mi_medio_pasaje/screens/profile_page.dart';
@@ -18,6 +19,17 @@ class NavigatorDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
+          ),
+          ListTile(
+            title: const Text('Home'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ),
+              );
+            },
           ),
           ListTile(
             title: const Text('Perfil'),
