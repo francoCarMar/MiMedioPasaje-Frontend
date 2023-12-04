@@ -30,16 +30,21 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final textStyles = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Iniciar sesión',
-            style: textStyles.titleLarge?.copyWith(color: Colors.white)),
+            style: textStyles.headlineMedium
+                ?.copyWith(color: colorScheme.onPrimary)),
+        backgroundColor: colorScheme.primary,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
+            Image.asset('lib/assets/logo.png'),
+            const SizedBox(height: 20),
             CustomTextField(
                 controller: _controllers['Email'],
                 labelText: 'Email',
@@ -66,7 +71,12 @@ class LoginPageState extends State<LoginPage> {
                   builder: (context, _, __) => ValueListenableBuilder(
                     valueListenable: _controllers['Password'],
                     builder: (context, _, __) => ElevatedButton(
-                      child: Text('INGRESAR'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: colorScheme.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
                       onPressed: (_controllers['Email'].text.isNotEmpty &&
                               _controllers['Password'].text.isNotEmpty)
                           ? () async {
@@ -79,6 +89,8 @@ class LoginPageState extends State<LoginPage> {
                               }
                             }
                           : null,
+                      child: const Text('INGRESAR',
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ),
                 ),

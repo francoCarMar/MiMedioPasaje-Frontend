@@ -65,8 +65,11 @@ class NavigatorDrawer extends StatelessWidget {
               title: Text('Cerrar sesión'),
             ),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()));
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+                (route) => false, // Esto elimina todas las rutas anteriores.
+              );
             },
           ),
         ],
