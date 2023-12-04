@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Denuncia {
   final String denCod;
   final String usrDNI;

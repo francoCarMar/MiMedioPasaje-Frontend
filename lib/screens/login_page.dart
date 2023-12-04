@@ -4,6 +4,7 @@ import 'package:mi_medio_pasaje/components/password_textfield.dart';
 import 'package:mi_medio_pasaje/helpers/user_helper.dart';
 import 'package:mi_medio_pasaje/models/user_model.dart';
 import 'package:mi_medio_pasaje/screens/home_page.dart';
+import 'package:mi_medio_pasaje/screens/loading_screen_page.dart';
 import 'package:mi_medio_pasaje/screens/register_page.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
 
@@ -24,6 +25,7 @@ class LoginPageState extends State<LoginPage> {
     'Email': '',
     'Password': '',
   };
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,8 @@ class LoginPageState extends State<LoginPage> {
                   },
                 ),
               ],
-            )
+            ),
+            if (_isLoading) const LoadingScreen(),
           ],
         ),
       ),
@@ -74,6 +77,9 @@ class LoginPageState extends State<LoginPage> {
   }
 
   Future<bool> _login() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       Map<String, dynamic> data = {
         'usrEma': _controllers['Email'].text,
@@ -97,7 +103,9 @@ class LoginPageState extends State<LoginPage> {
           _controllers[error].text = '';
         }
 
-        setState(() {});
+        setState(() {
+          _isLoading = false;
+        });
         return access;
       } else {
         throw Exception('Error al iniciar sesión');

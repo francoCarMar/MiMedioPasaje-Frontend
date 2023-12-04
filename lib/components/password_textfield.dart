@@ -24,6 +24,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         TextField(
           controller: widget.controller,
           decoration: InputDecoration(
+            border: const OutlineInputBorder(),
             labelText: "Contraseña",
             suffixIcon: IconButton(
               icon: Icon(
