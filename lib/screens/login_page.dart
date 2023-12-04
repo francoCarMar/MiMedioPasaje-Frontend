@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/custom_textfield.dart';
 import 'package:mi_medio_pasaje/components/password_textfield.dart';
@@ -87,6 +89,7 @@ class LoginPageState extends State<LoginPage> {
                         onPressed: (_controllers['Email'].text.isNotEmpty &&
                                 _controllers['Password'].text.isNotEmpty)
                             ? () async {
+                                FocusScope.of(context).unfocus();
                                 if (await _login()) {
                                   if (!context.mounted) return;
                                   Navigator.push(
@@ -121,7 +124,8 @@ class LoginPageState extends State<LoginPage> {
         'usrPas': _controllers['Password'].text,
       };
       final response = await ApiService()
-          .postData('https://mimediopasaje-backend.onrender.com/login', data);
+          .postData('https://mimediopasaje-backend.onrender.com/login', data)
+          .timeout(Duration(seconds: 12));
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = response.data;
@@ -147,6 +151,14 @@ class LoginPageState extends State<LoginPage> {
       } else {
         throw Exception('Error al iniciar sesión');
       }
+    } on TimeoutException catch (_) {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('No hay conexión')),
+      );
+      return false;
     } catch (e) {
       print('Ocurrió un error: $e');
       return false;

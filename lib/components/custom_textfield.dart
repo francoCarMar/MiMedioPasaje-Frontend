@@ -26,6 +26,7 @@ class CustomTextField extends StatelessWidget {
             border: const OutlineInputBorder(),
             labelText: labelText,
           ),
+          onEditingComplete: () => FocusScope.of(context).unfocus(),
         ),
         Align(
             alignment: Alignment.centerLeft,
