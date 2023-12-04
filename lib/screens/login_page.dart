@@ -31,6 +31,8 @@ class LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final textStyles = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -43,7 +45,11 @@ class LoginPageState extends State<LoginPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
-            Image.asset('lib/assets/logo.png'),
+            Image.asset(
+              'lib/assets/logo.png',
+              width: screenWidth * 0.9,
+              height: screenHeight * 0.3,
+            ),
             const SizedBox(height: 20),
             CustomTextField(
                 controller: _controllers['Email'],

@@ -5,12 +5,13 @@ class CustomTextField extends StatelessWidget {
   final String labelText;
   final String errorText;
   final bool enabled;
-  const CustomTextField(
-      {super.key,
-      required this.controller,
-      required this.labelText,
-      this.errorText = "",
-      this.enabled = true});
+  const CustomTextField({
+    super.key,
+    required this.controller,
+    required this.labelText,
+    this.errorText = "",
+    this.enabled = true,
+  });
 
   @override
   Widget build(BuildContext context) {

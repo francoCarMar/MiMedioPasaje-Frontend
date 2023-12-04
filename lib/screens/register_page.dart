@@ -31,54 +31,68 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Registrarse'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            CustomTextField(
-                controller: _emailController,
-                labelText: 'Email',
-                errorText: _errors['Email']),
-            CustomTextField(controller: _nameController, labelText: 'Nombres'),
-            CustomTextField(
-                controller: _lNameController, labelText: 'Apellidos'),
-            CustomTextField(
-                controller: _dniController,
-                labelText: 'Número de DNI',
-                errorText: _errors['DNI']),
-            PasswordTextField(controller: _passController),
-            UploadFileComponent(
-              onFileSelected: (path) {
-                _imgDNIController.text = path;
-              },
-              label: "Adjuntar imagen del DNI",
-            ),
-            const SizedBox(height: 20),
-            UploadFileComponent(
-              onFileSelected: (path) {
-                _imgCarnetController.text = path;
-              },
-              label: "Adjuntar imagen del Carnet Universitario",
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                if (await _register()) {
-                  if (!context.mounted) return;
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginPage()));
-                }
-              },
-              child: const Text('Registrarse'),
-            ),
-            if (_isLoading) const LoadingScreen(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Image.asset(
+                'lib/assets/logo.png',
+                width: screenWidth * 0.6,
+                height: screenHeight * 0.25,
+              ),
+              CustomTextField(
+                  controller: _emailController,
+                  labelText: 'Email',
+                  errorText: _errors['Email']),
+              CustomTextField(
+                controller: _nameController,
+                labelText: 'Nombres',
+              ),
+              CustomTextField(
+                controller: _lNameController,
+                labelText: 'Apellidos',
+              ),
+              CustomTextField(
+                  controller: _dniController,
+                  labelText: 'Número de DNI',
+                  errorText: _errors['DNI']),
+              PasswordTextField(controller: _passController),
+              UploadFileComponent(
+                onFileSelected: (path) {
+                  _imgDNIController.text = path;
+                },
+                label: "Adjuntar imagen del DNI",
+              ),
+              const SizedBox(height: 20),
+              UploadFileComponent(
+                onFileSelected: (path) {
+                  _imgCarnetController.text = path;
+                },
+                label: "Adjuntar imagen del Carnet Universitario",
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () async {
+                  if (await _register()) {
+                    if (!context.mounted) return;
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()));
+                  }
+                },
+                child: const Text('Registrarse'),
+              ),
+              if (_isLoading) const LoadingScreen(),
+            ],
+          ),
         ),
       ),
     );
