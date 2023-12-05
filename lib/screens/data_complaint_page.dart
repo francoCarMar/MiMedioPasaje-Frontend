@@ -15,12 +15,14 @@ class DataComplaint extends StatefulWidget {
 }
 
 class DataComplaintState extends State<DataComplaint> {
+  String denEvi = '';
   @override
   void initState() {
     super.initState();
     initializeTimezone();
     _denFec.text = getCurrentDate();
     _denHor.text = getCurrentTime();
+    denEvi = widget.pathEvi;
   }
 
   final _denRazSoc = TextEditingController();
@@ -30,7 +32,6 @@ class DataComplaintState extends State<DataComplaint> {
   String usrDNI = '';
   String usrApe = '';
   String usrNom = '';
-  String denEvi = '';
 
   @override
   Widget build(BuildContext context) {
