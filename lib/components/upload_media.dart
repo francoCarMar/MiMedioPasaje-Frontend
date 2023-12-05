@@ -4,9 +4,13 @@ import 'package:mi_medio_pasaje/services/camera_gallery_service.dart';
 class UploadFileComponent extends StatefulWidget {
   final ValueChanged<String> onFileSelected;
   final String label;
+  final String pathAlternative;
 
   const UploadFileComponent(
-      {super.key, required this.onFileSelected, required this.label});
+      {super.key,
+      required this.onFileSelected,
+      required this.label,
+      this.pathAlternative = ''});
   _UploadFileComponentState createState() => _UploadFileComponentState();
 }
 
@@ -15,14 +19,21 @@ class _UploadFileComponentState extends State<UploadFileComponent> {
   final CameraGalleryService service = CameraGalleryService();
 
   void _pickFile() async {
-    String? filePath = await service.selectPhoto();
-
-    if (filePath != null && filePath != _filePath) {
-      String fileName = filePath.split('/').last;
+    if (widget.pathAlternative.isNotEmpty) {
       setState(() {
-        _filePath = fileName;
+        widget.onFileSelected(widget.pathAlternative);
       });
-      widget.onFileSelected(filePath);
+    } else {
+      String? filePath = await service.selectPhoto();
+
+      if (filePath != null && filePath != _filePath) {
+        setState(() {
+          _filePath = filePath;
+        });
+        if (_filePath.isNotEmpty) {
+          widget.onFileSelected(_filePath);
+        }
+      }
     }
   }
 
@@ -31,7 +42,10 @@ class _UploadFileComponentState extends State<UploadFileComponent> {
     return Column(
       children: <Widget>[
         TextField(
-          controller: TextEditingController()..text = _filePath,
+          controller: TextEditingController()
+            ..text = widget.pathAlternative.isEmpty
+                ? _filePath
+                : widget.pathAlternative,
           readOnly: true,
           decoration: InputDecoration(
             labelText: widget.label,

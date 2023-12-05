@@ -51,10 +51,12 @@ class DataComplaintState extends State<DataComplaint> {
               labelText: 'Número de placa',
             ),
             UploadFileComponent(
-                onFileSelected: (path) {
-                  denEvi = path;
-                },
-                label: "Adjuntar evidencia"),
+              onFileSelected: (path) {
+                denEvi = path;
+              },
+              label: "Adjuntar evidencia",
+              pathAlternative: widget.pathEvi,
+            ),
             const SizedBox(height: 15),
             ElevatedButton(
               onPressed: () async {
