@@ -9,16 +9,53 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Perfil'),
+        title: const Text('Perfil', style: TextStyle(color: Colors.white)),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Nombre(s): ${UserHelper.getUser(context).usrNom}'),
-            Text('Apellido(s): ${UserHelper.getUser(context).usrApe}'),
-            Text('Email: ${UserHelper.getUser(context).usrEma}'),
-            Text('DNI: ${UserHelper.getUser(context).usrDNI}'),
+            const SizedBox(height: 30),
+            const Center(
+              child: CircleAvatar(
+                radius: 60,
+                child: Icon(Icons.person, size: 50),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Center(
+              child: Text(
+                'Información del Usuario',
+                style: Theme.of(context).textTheme.headlineMedium,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(height: 30),
+            ListTile(
+              title: Text('Nombre(s):',
+                  style: Theme.of(context).textTheme.titleMedium),
+              subtitle: Text(UserHelper.getUser(context).usrNom,
+                  style: Theme.of(context).textTheme.bodyLarge),
+            ),
+            ListTile(
+              title: Text('Apellido(s):',
+                  style: Theme.of(context).textTheme.titleMedium),
+              subtitle: Text(UserHelper.getUser(context).usrApe,
+                  style: Theme.of(context).textTheme.bodyLarge),
+            ),
+            ListTile(
+              title: Text('Email:',
+                  style: Theme.of(context).textTheme.titleMedium),
+              subtitle: Text(UserHelper.getUser(context).usrEma,
+                  style: Theme.of(context).textTheme.bodyLarge),
+            ),
+            ListTile(
+              title:
+                  Text('DNI:', style: Theme.of(context).textTheme.titleMedium),
+              subtitle: Text(UserHelper.getUser(context).usrDNI,
+                  style: Theme.of(context).textTheme.bodyLarge),
+            ),
           ],
         ),
       ),

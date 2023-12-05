@@ -3,6 +3,7 @@ import 'package:mi_medio_pasaje/components/navigator_drawer.dart';
 import 'package:mi_medio_pasaje/helpers/status_icon_helper.dart';
 import 'package:mi_medio_pasaje/helpers/user_helper.dart';
 import 'package:mi_medio_pasaje/models/denuncia_model.dart';
+import 'package:mi_medio_pasaje/screens/loading_screen_page.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
 
 class ListComplaint extends StatefulWidget {
@@ -14,6 +15,7 @@ class ListComplaint extends StatefulWidget {
 }
 
 class ListComplaintState extends State<ListComplaint> {
+  bool _isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -21,6 +23,9 @@ class ListComplaintState extends State<ListComplaint> {
   }
 
   Future<void> _getComplaints() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       String usrDNI = UserHelper.getUser(context).usrDNI;
       Map<String, dynamic> data = {
@@ -28,6 +33,10 @@ class ListComplaintState extends State<ListComplaint> {
       };
       var response = await ApiService().postData(
           'https://mimediopasaje-backend.onrender.com/denuncias', data);
+
+      setState(() {
+        _isLoading = false;
+      });
 
       if (response.statusCode == 200) {
         print(response.data['denuncias']);
@@ -54,17 +63,20 @@ class ListComplaintState extends State<ListComplaint> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: widget._denuncias.length,
-          itemBuilder: (context, index) {
-            final denuncia = widget._denuncias[index];
-            return ListTile(
-              title: Text(denuncia.denRazSoc),
-              subtitle: Text(denuncia.denEst),
-              trailing: StatusIconHelper.getIconForStatus(denuncia.denEst),
-            );
-          },
-        ),
+        child: _isLoading
+            ? const LoadingScreen()
+            : ListView.builder(
+                itemCount: widget._denuncias.length,
+                itemBuilder: (context, index) {
+                  final denuncia = widget._denuncias[index];
+                  return ListTile(
+                    title: Text(denuncia.denRazSoc),
+                    subtitle: Text(denuncia.denEst),
+                    trailing:
+                        StatusIconHelper.getIconForStatus(denuncia.denEst),
+                  );
+                },
+              ),
       ),
       drawer: const NavigatorDrawer(),
     );

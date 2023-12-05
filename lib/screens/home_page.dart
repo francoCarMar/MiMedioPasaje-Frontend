@@ -37,14 +37,15 @@ class HomePage extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.55,
+                width: MediaQuery.of(context).size.width * 0.90,
                 child: Image.asset(
                   'lib/assets/MedioPasaje.jpg',
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 80),
             ElevatedButton(
               style: CustomButtonStyle(colorScheme: colorScheme).style,
               onPressed: () {
@@ -57,6 +58,7 @@ class HomePage extends StatelessWidget {
               },
               child: const Text('Grabar'),
             ),
+            const SizedBox(height: 20),
             ElevatedButton(
               style: CustomButtonStyle(colorScheme: colorScheme).style,
               onPressed: () async {

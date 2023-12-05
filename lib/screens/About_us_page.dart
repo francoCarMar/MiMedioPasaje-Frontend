@@ -26,8 +26,12 @@ class AboutUsPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'Mi Medio Pasaje es una aplicación que facilita el acceso a los medios de transporte. '
-              'Nuestro objetivo es proporcionar una plataforma fácil de usar que ayude a los usuarios a reclamar su medio pasaje.',
+              'Mi Medio Pasaje es una aplicación que sirve de ayuda al pasajero'
+              'universitario cuando usa el transporte público. Es un derecho el'
+              'exigir que se respete el medio pasaje universitario pero aveces '
+              'es complicado hacer valer este derecho, este proyecto tiene por'
+              'finalidad ayudar al pasajero para que de manera fácil y práctica '
+              'pueda reclamar su derecho al medio pasaje y pueda ver su respuesta de manera efectiva.',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 32),
@@ -37,7 +41,9 @@ class AboutUsPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'Nuestro equipo está compuesto por profesionales dedicados a hacer respetar tus derechos.',
+              'Nuestro equipo está conformado por estudiantes del curso de '
+              'Construcción de Software A de la Escuela Profesional de Ingeniería '
+              'de Sistemas de la UNSA',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 16),
@@ -67,6 +73,7 @@ class AboutUsPage extends StatelessWidget {
           ],
         ),
       ),
+      drawer: const NavigatorDrawer(),
     );
   }
 }
