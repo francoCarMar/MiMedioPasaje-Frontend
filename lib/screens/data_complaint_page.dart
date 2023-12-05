@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/custom_textfield.dart';
+import 'package:mi_medio_pasaje/components/navigator_drawer.dart';
 import 'package:mi_medio_pasaje/components/upload_media.dart';
 import 'package:mi_medio_pasaje/helpers/user_helper.dart';
+import 'package:mi_medio_pasaje/screens/confirmation_complaint_page.dart';
+import 'package:mi_medio_pasaje/screens/home_page.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
 import 'package:mi_medio_pasaje/services/cloudinary_service.dart';
 import 'package:mi_medio_pasaje/helpers/data_time_helper.dart';
@@ -16,7 +19,7 @@ class DataComplaint extends StatefulWidget {
 
 class DataComplaintState extends State<DataComplaint> {
   String denEvi = '';
-  @override
+
   void initState() {
     super.initState();
     initializeTimezone();
@@ -61,15 +64,21 @@ class DataComplaintState extends State<DataComplaint> {
             const SizedBox(height: 15),
             ElevatedButton(
               onPressed: () async {
-                if (await _complaint()) {
-                  print("Denuncia enviada");
-                }
+                final BuildContext currentContext = context;
+                bool isSuccess = await _complaint();
+                showDialog(
+                  context: currentContext,
+                  builder: (BuildContext context) {
+                    return ConfirmationDialog(isSuccess: isSuccess);
+                  },
+                );
               },
               child: const Text('Denunciar'),
             ),
           ],
         ),
       ),
+      drawer: const NavigatorDrawer(),
     );
   }
 
