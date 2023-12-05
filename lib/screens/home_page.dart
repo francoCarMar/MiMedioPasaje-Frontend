@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mi_medio_pasaje/components/navigator_drawer.dart';
-import 'package:mi_medio_pasaje/screens/new_complaint_page.dart';
+import 'package:mi_medio_pasaje/helpers/dialog_helper.dart';
+import 'package:mi_medio_pasaje/screens/camera_page.dart';
+import 'package:mi_medio_pasaje/screens/data_complaint_page.dart';
 import 'package:mi_medio_pasaje/screens/profile_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -44,28 +46,55 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: colorScheme.onPrimary,
-                backgroundColor: colorScheme.primary, // color del texto
-                shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(30.0), // bordes redondeados
-                ),
-              ),
+              style: CustomButtonStyle(colorScheme: colorScheme).style,
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const NewComplaint(),
+                    builder: (context) => const CameraPage(),
                   ),
                 );
               },
-              child: const Text('Nueva Queja'),
+              child: const Text('Grabar'),
             ),
+            ElevatedButton(
+              style: CustomButtonStyle(colorScheme: colorScheme).style,
+              onPressed: () async {
+                DialogUtils.showLoadingDialog(context);
+
+                Navigator.pop(context);
+                //final videoPath = await FilePickerService.pickVideo();
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DataComplaint(),
+                  ),
+                );
+              },
+              child: const Text('Adjuntar data'),
+            ),
+            const SizedBox(height: 40),
           ],
         ),
       ),
       drawer: const NavigatorDrawer(),
+    );
+  }
+}
+
+class CustomButtonStyle {
+  final ColorScheme colorScheme;
+
+  CustomButtonStyle({required this.colorScheme});
+
+  ButtonStyle get style {
+    return ElevatedButton.styleFrom(
+      foregroundColor: colorScheme.onPrimary,
+      backgroundColor: colorScheme.primary,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+      ),
     );
   }
 }

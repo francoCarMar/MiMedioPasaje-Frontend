@@ -5,6 +5,7 @@ import 'package:mi_medio_pasaje/components/upload_media.dart';
 import 'package:mi_medio_pasaje/helpers/user_helper.dart';
 import 'package:mi_medio_pasaje/screens/confirmation_complaint_page.dart';
 import 'package:mi_medio_pasaje/screens/home_page.dart';
+import 'package:mi_medio_pasaje/screens/loading_screen_page.dart';
 import 'package:mi_medio_pasaje/services/api_service.dart';
 import 'package:mi_medio_pasaje/services/cloudinary_service.dart';
 import 'package:mi_medio_pasaje/helpers/data_time_helper.dart';
@@ -35,9 +36,11 @@ class DataComplaintState extends State<DataComplaint> {
   String usrDNI = '';
   String usrApe = '';
   String usrNom = '';
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Denunciar'),
@@ -63,6 +66,7 @@ class DataComplaintState extends State<DataComplaint> {
             ),
             const SizedBox(height: 15),
             ElevatedButton(
+              style: CustomButtonStyle(colorScheme: colorScheme).style,
               onPressed: () async {
                 final BuildContext currentContext = context;
                 bool isSuccess = await _complaint();
@@ -75,6 +79,7 @@ class DataComplaintState extends State<DataComplaint> {
               },
               child: const Text('Denunciar'),
             ),
+            if (_isLoading) const LoadingScreen(),
           ],
         ),
       ),
@@ -83,6 +88,9 @@ class DataComplaintState extends State<DataComplaint> {
   }
 
   Future<bool> _complaint() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       String usrDNI = UserHelper.getUser(context).usrDNI;
       String usrNom = UserHelper.getUser(context).usrNom;
@@ -102,6 +110,10 @@ class DataComplaintState extends State<DataComplaint> {
 
       final response = await ApiService().postData(
           'https://mimediopasaje-backend.onrender.com/denunciar', data);
+
+      setState(() {
+        _isLoading = false;
+      });
 
       if (response.statusCode == 200) {
         return true;
