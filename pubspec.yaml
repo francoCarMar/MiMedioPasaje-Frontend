@@ -60,6 +60,8 @@ flutter:
     - .env
     - lib/assets/logo.png
     - lib/assets/MedioPasaje.jpg
+    - lib/assets/Franco.jpg
+    - lib/assets/Henry.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
