@@ -57,27 +57,48 @@ class ListComplaintState extends State<ListComplaint> {
 
   @override
   Widget build(BuildContext context) {
+    widget._denuncias.sort((a, b) => b.denFec.compareTo(a.denFec));
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mis Denuncias'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: _isLoading
-            ? const LoadingScreen()
-            : ListView.builder(
-                itemCount: widget._denuncias.length,
-                itemBuilder: (context, index) {
-                  final denuncia = widget._denuncias[index];
-                  return ListTile(
-                    title: Text(denuncia.denRazSoc),
-                    subtitle: Text(denuncia.denEst),
-                    trailing:
-                        StatusIconHelper.getIconForStatus(denuncia.denEst),
-                  );
-                },
-              ),
-      ),
+          padding: const EdgeInsets.all(16.0),
+          child: _isLoading
+              ? const LoadingScreen()
+              : ListView.builder(
+                  itemCount: widget._denuncias.length,
+                  itemBuilder: (context, index) {
+                    final denuncia = widget._denuncias[index];
+                    return GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Mensaje de Estado'),
+                              content: Text(denuncia.denMsjEst),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('Cerrar'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: ListTile(
+                        title: Text(denuncia.denRazSoc),
+                        subtitle: Text(denuncia.denEst),
+                        trailing:
+                            StatusIconHelper.getIconForStatus(denuncia.denEst),
+                      ),
+                    );
+                  },
+                )),
       drawer: const NavigatorDrawer(),
     );
   }

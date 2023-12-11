@@ -9,6 +9,7 @@ class Denuncia {
   final String denHor;
   final String denEvi;
   final String denEst;
+  final String denMsjEst;
 
   Denuncia({
     required this.denCod,
@@ -21,6 +22,7 @@ class Denuncia {
     required this.denHor,
     this.denEvi = '',
     required this.denEst,
+    required this.denMsjEst,
   });
 
   factory Denuncia.fromJson(Map<String, dynamic> json) {
@@ -35,6 +37,7 @@ class Denuncia {
       denHor: json['denHor'],
       denEvi: json['denEvi'],
       denEst: json['denEst'],
+      denMsjEst: json['denMsjEst'],
     );
   }
 
@@ -50,6 +53,7 @@ class Denuncia {
       'denHor': denHor,
       'denEvi': denEvi,
       'denEst': denEst,
+      'denMsjEst': denMsjEst,
     };
   }
 
